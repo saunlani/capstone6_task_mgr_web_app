@@ -1,0 +1,82 @@
+﻿@model IEnumerable<capstone6_task_mgr_web_app.Models.Task>
+
+@{
+    ViewBag.Title = "GotÜ - Tasks";
+}
+
+<h2>GotÜ - Tasks</h2>
+Search by a word in the description:
+@using (Html.BeginForm("Index", "Tasks", FormMethod.Get))
+{
+    @Html.TextBox("searching")
+    <input type="submit" value="submit" />
+}
+
+Search by a completion status:
+@using (Html.BeginForm("Index", "Tasks", FormMethod.Get))
+{
+    @Html.TextBox("searchingComp")
+    <input type="submit" value="submit" />
+}
+
+Search by a Due Date:
+@using (Html.BeginForm("Index", "Tasks", FormMethod.Get))
+{
+    @Html.TextBox("searchingDate")
+    <input type="submit" value="submit" />
+}
+
+Search by user's email:
+@using (Html.BeginForm("Index", "Tasks", FormMethod.Get))
+{
+    @Html.TextBox("searchingEmail")
+    <input type="submit" value="submit" />
+}
+    <table class="table">
+
+        @using (Html.BeginForm("Index", "Tasks", FormMethod.Get))
+        {
+            <tr>
+                <th>
+                    @Html.ActionLink("Description", "Index", new { sortBy = ViewBag.SortDescriptionParameter })
+                    @*@Html.DisplayNameFor(model => model.Description)*@
+                </th>
+                <th>
+                    @Html.ActionLink("DueDate", "Index", new { sortBy = ViewBag.SortDueDateParameter })
+                    @*@Html.DisplayNameFor(model => model.DueDate)*@
+                </th>
+                <th>
+                    @Html.ActionLink("Completed", "Index", new { sortBy = ViewBag.SortCompletedParameter })
+                    @*@Html.DisplayNameFor(model => model.Completed)*@
+                </th>
+                <th>
+                    @Html.ActionLink("Email", "Index", new { sortBy = ViewBag.SortEmailParameter })
+                    @*@Html.DisplayNameFor(model => model.User.Email)*@
+                </th>
+                <th></th>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Completed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TaskID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TaskID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TaskID })
+                </td>
+            </tr>
+        }
+
+    </table>
